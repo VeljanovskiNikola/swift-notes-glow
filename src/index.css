@@ -76,8 +76,23 @@
 
   /* Code block wrapper with language label bar */
   .prose-swift .code-block-wrapper {
-    @apply rounded-xl overflow-hidden my-6 border border-border;
+    @apply rounded-xl overflow-hidden my-6 border border-border relative;
     background: #1A1A1C;
+  }
+  .prose-swift .copy-mount {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+  }
+  /* Semi-transparent on desktop, visible on hover */
+  @media (min-width: 768px) {
+    .prose-swift .copy-mount .copy-btn {
+      opacity: 0.4;
+    }
+    .prose-swift .code-block-wrapper:hover .copy-mount .copy-btn {
+      opacity: 1;
+    }
   }
   .prose-swift .code-block-header {
     @apply px-4 py-2 text-xs font-medium tracking-wide border-b border-border;

@@ -74,14 +74,78 @@
     box-shadow: var(--hover-lift);
   }
 
-  .prose-swift pre {
-    @apply rounded-xl bg-[hsl(240,6%,10%)] border border-border p-4 overflow-x-auto text-sm leading-relaxed;
+  /* Code block wrapper with language label bar */
+  .prose-swift .code-block-wrapper {
+    @apply rounded-xl overflow-hidden my-6 border border-border;
+    background: #1A1A1C;
   }
-  .prose-swift code {
-    @apply text-[hsl(var(--tag-text))] text-sm font-mono;
+  .prose-swift .code-block-header {
+    @apply px-4 py-2 text-xs font-medium tracking-wide border-b border-border;
+    color: hsl(var(--muted-foreground));
+    background: #222224;
+  }
+  .prose-swift pre {
+    @apply p-4 overflow-x-auto text-sm leading-relaxed m-0;
+    background: #1A1A1C !important;
+    border: none;
+    border-radius: 0;
   }
   .prose-swift pre code {
-    @apply text-foreground;
+    @apply text-sm font-mono;
+    color: #abb2bf;
+    background: transparent;
+  }
+  .prose-swift code {
+    @apply text-sm font-mono px-1.5 py-0.5 rounded;
+    color: hsl(var(--tag-text));
+    background: hsl(var(--muted));
+  }
+  .prose-swift pre code {
+    @apply p-0;
+    background: transparent;
+  }
+
+  /* One Dark–inspired Prism token colors */
+  .prose-swift .token.comment,
+  .prose-swift .token.prolog,
+  .prose-swift .token.doctype,
+  .prose-swift .token.cdata {
+    color: #5c6370;
+    font-style: italic;
+  }
+  .prose-swift .token.keyword,
+  .prose-swift .token.atrule {
+    color: #c678dd;
+  }
+  .prose-swift .token.function {
+    color: #61afef;
+  }
+  .prose-swift .token.string,
+  .prose-swift .token.char,
+  .prose-swift .token.attr-value {
+    color: #98c379;
+  }
+  .prose-swift .token.number,
+  .prose-swift .token.boolean {
+    color: #d19a66;
+  }
+  .prose-swift .token.class-name,
+  .prose-swift .token.builtin {
+    color: #e5c07b;
+  }
+  .prose-swift .token.property,
+  .prose-swift .token.constant {
+    color: #d19a66;
+  }
+  .prose-swift .token.operator,
+  .prose-swift .token.punctuation {
+    color: #abb2bf;
+  }
+  .prose-swift .token.variable {
+    color: #e06c75;
+  }
+  .prose-swift .token.attr-name {
+    color: #d19a66;
   }
   .prose-swift blockquote {
     @apply border-l-2 border-primary pl-4 italic text-muted-foreground my-6;

@@ -5,7 +5,7 @@ import { getTagStyle } from "@/lib/tagColors";
 const PostCard = ({ post, index }: { post: BlogPost; index: number }) => (
   <Link
     to={`/post/${post.slug}`}
-    className="block bg-card rounded-lg p-5 card-hover opacity-0 animate-fade-up border border-border"
+    className="block bg-card rounded-xl p-5 card-hover gradient-border opacity-0 animate-fade-up"
     style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
   >
     <div className="flex flex-wrap gap-2 mb-3">

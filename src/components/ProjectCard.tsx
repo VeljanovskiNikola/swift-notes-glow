@@ -11,7 +11,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
     <div className="flex flex-wrap gap-2 mb-4">
       {project.tags.map((tag) => (
-        <span key={tag} className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-primary/15 text-primary">
+        <span key={tag} className="text-xs font-medium px-2.5 py-0.5 rounded-full" style={(await import("@/lib/tagColors")).getTagStyle(tag)}>
           {tag}
         </span>
       ))}

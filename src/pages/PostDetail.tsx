@@ -67,7 +67,7 @@ const PostDetail = () => {
           </Link>
           <div className="flex flex-wrap gap-2 mb-4">
             {post.tags.map((tag) => (
-              <span key={tag} className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-primary/15 text-primary">
+              <span key={tag} className="text-xs font-medium px-2.5 py-0.5 rounded-full" style={getTagStyle(tag)}>
                 {tag}
               </span>
             ))}

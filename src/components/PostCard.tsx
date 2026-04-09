@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { formatDate, type BlogPost } from "@/data/posts";
+import { getTagStyle } from "@/lib/tagColors";
 
 const PostCard = ({ post, index }: { post: BlogPost; index: number }) => (
   <Link
@@ -11,7 +12,8 @@ const PostCard = ({ post, index }: { post: BlogPost; index: number }) => (
       {post.tags.map((tag) => (
         <span
           key={tag}
-          className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-primary/15 text-primary"
+          className="text-xs font-medium px-2.5 py-0.5 rounded-full"
+          style={getTagStyle(tag)}
         >
           {tag}
         </span>

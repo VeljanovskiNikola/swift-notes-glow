@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { getTagStyle } from "@/lib/tagColors";
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
   <div
-    className="bg-card rounded-lg p-5 card-hover border border-border opacity-0 animate-fade-up"
+    className="bg-card rounded-xl p-5 card-hover gradient-border opacity-0 animate-fade-up"
     style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
   >
     <h3 className="text-lg font-semibold text-foreground mb-2">{project.name}</h3>
@@ -21,7 +20,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       href={project.github}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+      className="inline-flex items-center gap-1.5 text-sm text-purple-400 hover:underline"
     >
       <ExternalLink size={14} />
       View on GitHub

@@ -3,15 +3,24 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getPost, formatDate } from "@/data/posts";
 import { ArrowLeft } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Prism from "prismjs";
+import "prismjs/components/prism-swift";
 
 const PostDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = getPost(slug || "");
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      Prism.highlightAllUnder(contentRef.current);
+    }
+  }, [post]);
 
   if (!post) {
     return (
@@ -48,7 +57,7 @@ const PostDetail = () => {
             <span>·</span>
             <span>{post.readingTime}</span>
           </div>
-          <div className="prose-swift" dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }} />
+          <div ref={contentRef} className="prose-swift" dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }} />
         </article>
       </main>
       <Footer />
@@ -58,7 +67,11 @@ const PostDetail = () => {
 
 function renderMarkdown(content: string): string {
   return content
-    .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+    .replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, lang, code) => {
+      const language = lang || "swift";
+      const label = language.charAt(0).toUpperCase() + language.slice(1);
+      return `<div class="code-block-wrapper"><div class="code-block-header"><span>${label}</span></div><pre class="language-${language}"><code class="language-${language}">${escapeHtml(code.trim())}</code></pre></div>`;
+    })
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
@@ -66,9 +79,16 @@ function renderMarkdown(content: string): string {
     .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-foreground">$1</strong>')
     .replace(/^- (.+)$/gm, '<li>$1</li>')
     .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    .replace(/^(?!<[hupbl]|$)(.+)$/gm, '<p>$1</p>')
+    .replace(/^(?!<[hupbld]|$)(.+)$/gm, '<p>$1</p>')
     .replace(/<\/blockquote>\n<blockquote>/g, '')
     .replace(/\n{2,}/g, '\n');
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 export default PostDetail;

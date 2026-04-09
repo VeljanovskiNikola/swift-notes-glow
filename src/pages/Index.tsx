@@ -36,7 +36,9 @@ const Index = () => {
       <Navbar />
       <main className="container mx-auto px-4 pt-24 pb-8">
         <div className="mb-10">
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Swift Notes</h1>
+          <h1 className="text-4xl font-extrabold tracking-tight mb-2 gradient-text">
+            Swift Notes
+          </h1>
           <p className="text-muted-foreground">
             Thoughts on iOS development, Swift, and the craft of building software.
           </p>
@@ -50,7 +52,7 @@ const Index = () => {
             placeholder="Search posts..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-lg border border-border bg-card pl-10 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/50"
+            className="w-full rounded-xl border border-border bg-card pl-10 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 transition-all"
           />
         </div>
 

@@ -6,11 +6,15 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect, useRef } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-swift";
+import CopyButton from "@/components/CopyButton";
+import { createPortal } from "react-dom";
+import { useState } from "react";
 
 const PostDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = getPost(slug || "");
   const contentRef = useRef<HTMLDivElement>(null);
+  const [copyTargets, setCopyTargets] = useState<{ el: Element; code: string }[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,6 +23,23 @@ const PostDetail = () => {
   useEffect(() => {
     if (contentRef.current) {
       Prism.highlightAllUnder(contentRef.current);
+
+      // Find all code-block-wrappers and mount copy button portals
+      const wrappers = contentRef.current.querySelectorAll(".code-block-wrapper");
+      const targets: { el: Element; code: string }[] = [];
+      wrappers.forEach((wrapper) => {
+        const codeEl = wrapper.querySelector("code");
+        const code = codeEl?.textContent || "";
+        // Create a mount point for the copy button
+        let mount = wrapper.querySelector(".copy-mount");
+        if (!mount) {
+          mount = document.createElement("div");
+          mount.className = "copy-mount";
+          wrapper.appendChild(mount);
+        }
+        targets.push({ el: mount, code });
+      });
+      setCopyTargets(targets);
     }
   }, [post]);
 
@@ -61,6 +82,9 @@ const PostDetail = () => {
         </article>
       </main>
       <Footer />
+      {copyTargets.map((target, i) =>
+        createPortal(<CopyButton key={i} code={target.code} />, target.el)
+      )}
     </>
   );
 };
@@ -70,7 +94,7 @@ function renderMarkdown(content: string): string {
     .replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, lang, code) => {
       const language = lang || "swift";
       const label = language.charAt(0).toUpperCase() + language.slice(1);
-      return `<div class="code-block-wrapper"><div class="code-block-header"><span>${label}</span></div><pre class="language-${language}"><code class="language-${language}">${escapeHtml(code.trim())}</code></pre></div>`;
+      return `<div class="code-block-wrapper relative"><div class="code-block-header"><span>${label}</span></div><pre class="language-${language}"><code class="language-${language}">${escapeHtml(code.trim())}</code></pre></div>`;
     })
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')

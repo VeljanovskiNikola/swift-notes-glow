@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import type { Project } from "@/data/projects";
+import { getTagStyle } from "@/lib/tagColors";
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
   <div
@@ -11,7 +12,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
     <div className="flex flex-wrap gap-2 mb-4">
       {project.tags.map((tag) => (
-        <span key={tag} className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-primary/15 text-primary">
+        <span key={tag} className="text-xs font-medium px-2.5 py-0.5 rounded-full" style={getTagStyle(tag)}>
           {tag}
         </span>
       ))}

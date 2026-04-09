@@ -9,6 +9,7 @@ import "prismjs/components/prism-swift";
 import CopyButton from "@/components/CopyButton";
 import { createPortal } from "react-dom";
 import { useState } from "react";
+import { getTagStyle } from "@/lib/tagColors";
 
 const PostDetail = () => {
   const { slug } = useParams<{ slug: string }>();

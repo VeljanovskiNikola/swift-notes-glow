@@ -14,11 +14,14 @@ const About = () => (
     <Navbar />
     <main className="container mx-auto px-4 pt-24 pb-8 max-w-[680px]">
       <div className="flex flex-col sm:flex-row gap-6 items-start mb-12">
-        <div className="w-24 h-24 rounded-full bg-card border border-border flex items-center justify-center text-3xl font-bold text-primary shrink-0">
+        <div
+          className="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold text-white shrink-0"
+          style={{ background: "linear-gradient(135deg, #a78bfa, #60a5fa, #34d399)" }}
+        >
           SN
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-3">About</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-3 gradient-text">About</h1>
           <p className="text-muted-foreground leading-relaxed mb-3">
             I'm an iOS developer passionate about building thoughtful, performant software. I write about Swift, SwiftUI, app architecture, and the creative side of programming.
           </p>
@@ -32,11 +35,11 @@ const About = () => (
         {topics.map((t, i) => (
           <div
             key={t.label}
-            className="bg-card rounded-lg p-4 border border-border opacity-0 animate-fade-up"
+            className="bg-card rounded-xl p-4 card-hover gradient-border opacity-0 animate-fade-up"
             style={{ animationDelay: `${i * 80}ms`, animationFillMode: "forwards" }}
           >
             <div className="flex items-center gap-3 mb-2">
-              <t.icon size={18} className="text-primary" />
+              <t.icon size={18} className="text-purple-400" />
               <span className="font-medium text-foreground">{t.label}</span>
             </div>
             <p className="text-sm text-muted-foreground">{t.desc}</p>

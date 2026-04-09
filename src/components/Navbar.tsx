@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glassmorphic">
       <div className="container mx-auto flex items-center justify-between h-14 px-4">
-        <Link to="/" className="text-lg font-bold tracking-tight text-foreground">
+        <Link to="/" className="text-lg font-bold tracking-tight gradient-text">
           Swift Notes
         </Link>
         <div className="hidden md:flex items-center gap-6">
@@ -22,7 +22,7 @@ const Navbar = () => {
             <Link
               key={l.to}
               to={l.to}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {l.label}
             </Link>
@@ -43,7 +43,7 @@ const Navbar = () => {
               key={l.to}
               to={l.to}
               onClick={() => setOpen(false)}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {l.label}
             </Link>

@@ -3,46 +3,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getPost, formatDate } from "@/data/posts";
 import { ArrowLeft } from "lucide-react";
-import { useEffect, useRef } from "react";
-import Prism from "prismjs";
-import "prismjs/components/prism-swift";
-import CopyButton from "@/components/CopyButton";
-import { createPortal } from "react-dom";
-import { useState } from "react";
+import { useEffect } from "react";
 import { getTagStyle } from "@/lib/tagColors";
+import { MDXProvider } from "@mdx-js/react";
+import { mdxComponents } from "@/components/MdxComponents";
 
 const PostDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = getPost(slug || "");
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [copyTargets, setCopyTargets] = useState<{ el: Element; code: string }[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      Prism.highlightAllUnder(contentRef.current);
-
-      // Find all code-block-wrappers and mount copy button portals
-      const wrappers = contentRef.current.querySelectorAll(".code-block-wrapper");
-      const targets: { el: Element; code: string }[] = [];
-      wrappers.forEach((wrapper) => {
-        const codeEl = wrapper.querySelector("code");
-        const code = codeEl?.textContent || "";
-        // Create a mount point for the copy button
-        let mount = wrapper.querySelector(".copy-mount");
-        if (!mount) {
-          mount = document.createElement("div");
-          mount.className = "copy-mount";
-          wrapper.appendChild(mount);
-        }
-        targets.push({ el: mount, code });
-      });
-      setCopyTargets(targets);
-    }
-  }, [post]);
 
   if (!post) {
     return (
@@ -56,6 +28,8 @@ const PostDetail = () => {
       </>
     );
   }
+
+  const { Content } = post;
 
   return (
     <>
@@ -79,41 +53,16 @@ const PostDetail = () => {
             <span>·</span>
             <span>{post.readingTime}</span>
           </div>
-          <div ref={contentRef} className="prose-swift" dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }} />
+          <div className="prose-swift">
+            <MDXProvider components={mdxComponents}>
+              <Content />
+            </MDXProvider>
+          </div>
         </article>
       </main>
       <Footer />
-      {copyTargets.map((target, i) =>
-        createPortal(<CopyButton key={i} code={target.code} />, target.el)
-      )}
     </>
   );
 };
-
-function renderMarkdown(content: string): string {
-  return content
-    .replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, lang, code) => {
-      const language = lang || "swift";
-      const label = language.charAt(0).toUpperCase() + language.slice(1);
-      return `<div class="code-block-wrapper relative"><div class="code-block-header"><span>${label}</span></div><pre class="language-${language}"><code class="language-${language}">${escapeHtml(code.trim())}</code></pre></div>`;
-    })
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>')
-    .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-foreground">$1</strong>')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    .replace(/^(?!<[hupbld]|$)(.+)$/gm, '<p>$1</p>')
-    .replace(/<\/blockquote>\n<blockquote>/g, '')
-    .replace(/\n{2,}/g, '\n');
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
 
 export default PostDetail;

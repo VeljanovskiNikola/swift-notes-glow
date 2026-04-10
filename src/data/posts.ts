@@ -12,12 +12,14 @@ export interface BlogPost {
 
 interface MdxModule {
   default: ComponentType;
-  slug: string;
-  title: string;
-  date: string;
-  readingTime: string;
-  tags: string[];
-  excerpt: string;
+  frontmatter: {
+    slug: string;
+    title: string;
+    date: string;
+    readingTime: string;
+    tags: string[];
+    excerpt: string;
+  };
 }
 
 const modules = import.meta.glob<MdxModule>("../content/posts/*.mdx", {
@@ -26,12 +28,7 @@ const modules = import.meta.glob<MdxModule>("../content/posts/*.mdx", {
 
 export const posts: BlogPost[] = Object.values(modules)
   .map((mod) => ({
-    slug: mod.slug,
-    title: mod.title,
-    date: mod.date,
-    readingTime: mod.readingTime,
-    tags: mod.tags,
-    excerpt: mod.excerpt,
+    ...mod.frontmatter,
     Content: mod.default,
   }))
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

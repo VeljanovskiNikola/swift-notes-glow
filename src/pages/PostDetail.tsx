@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { getTagStyle } from "@/lib/tagColors";
 import { MDXProvider } from "@mdx-js/react";
 import { mdxComponents } from "@/components/MdxComponents";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const PostDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -57,6 +58,9 @@ const PostDetail = () => {
             <MDXProvider components={mdxComponents}>
               <Content />
             </MDXProvider>
+          </div>
+          <div className="mt-16">
+            <NewsletterSignup />
           </div>
         </article>
       </main>

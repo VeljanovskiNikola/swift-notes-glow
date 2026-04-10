@@ -1,11 +1,13 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const Footer = () => (
   <footer className="mt-20">
     <div className="glow-line opacity-40" />
-    <div className="container mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p className="text-sm text-muted-foreground">© 2026 Nikola Veljanovski. All rights reserved.</p>
-      <div className="flex items-center gap-4">
+    <div className="container mx-auto px-4 py-8 flex flex-col gap-6">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-sm text-muted-foreground">© 2026 Nikola Veljanovski. All rights reserved.</p>
+        <div className="flex items-center gap-4">
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="GitHub">
           <Github size={18} />
         </a>
@@ -15,6 +17,10 @@ const Footer = () => (
         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn">
           <Linkedin size={18} />
         </a>
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <NewsletterSignup compact />
       </div>
     </div>
   </footer>

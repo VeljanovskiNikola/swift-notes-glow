@@ -17,7 +17,7 @@ const Footer = () => (
           <Linkedin size={18} />
         </a>
       </div>
-      <NewsletterSignup compact />
+      <NewsletterSignup />
     </div>
   </footer>
 );

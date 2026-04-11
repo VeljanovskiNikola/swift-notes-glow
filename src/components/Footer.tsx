@@ -17,8 +17,8 @@ const Footer = () => (
         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn">
           <Linkedin size={18} />
         </a>
+        <p className="text-sm text-muted-foreground">© 2026 Nikola Veljanovski. All rights reserved.</p>
       </div>
-      <p className="text-sm text-muted-foreground">© 2026 Nikola Veljanovski. All rights reserved.</p>
   </footer>
 );
 

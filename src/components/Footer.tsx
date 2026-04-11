@@ -5,7 +5,8 @@ const Footer = () => (
   <footer className="mt-20">
     <div className="glow-line opacity-40" />
     <div className="container mx-auto px-4 py-8 flex flex-col items-center gap-6 text-center">
-      <p className="text-sm text-muted-foreground">© 2026 Nikola Veljanovski. All rights reserved.</p>
+      <NewsletterSignup />
+      </div>
       <div className="flex items-center gap-4">
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="GitHub">
           <Github size={18} />
@@ -17,8 +18,7 @@ const Footer = () => (
           <Linkedin size={18} />
         </a>
       </div>
-      <NewsletterSignup />
-    </div>
+      <p className="text-sm text-muted-foreground">© 2026 Nikola Veljanovski. All rights reserved.</p>
   </footer>
 );
 

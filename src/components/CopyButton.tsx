@@ -14,7 +14,7 @@ const CopyButton = ({ code }: { code: string }) => {
   return (
     <button
       onClick={handleCopy}
-      className="copy-btn absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium transition-all duration-200 border border-border bg-[#2a2a2c] hover:bg-[#3a3a3c]"
+      className="copy-btn absolute top-12 right-2 z-10 flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium transition-all duration-200 border border-border bg-[#2a2a2c] hover:bg-[#3a3a3c]"
       aria-label="Copy code"
     >
       {copied ? (

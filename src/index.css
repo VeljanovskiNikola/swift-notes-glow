@@ -141,7 +141,7 @@ html {
     border-bottom: 1px solid rgba(139, 92, 246, 0.1);
   }
   .prose-swift pre {
-    @apply p-4 overflow-x-auto text-sm leading-relaxed m-0;
+    @apply p-4 pr-20 overflow-x-auto text-sm leading-relaxed m-0;
     background: #0d0d12 !important;
     border: none;
     border-radius: 0;
